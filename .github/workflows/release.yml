@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and Release Plug-ins
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+
+      - name: Setup `wasm-tools`
+        uses: bytecodealliance/actions/wasm-tools/setup@v1
+
+      - name: Build
+        run: make build
+
+      - name: List directory contents
+        run: |
+          ls -la plugins
+
+      - name: Upload Artifact to Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            plugins/*.wasm
+        if: startsWith(github.ref, 'refs/tags/')
+
+      - name: Upload Artifacts to Job
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-plugins
+          path: plugins/*.wasm
