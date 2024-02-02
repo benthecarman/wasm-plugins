@@ -1,0 +1,12 @@
+[workspace]
+members = [
+    "even_block_hash",
+]
+
+resolver = "2"
+
+[workspace.dependencies]
+extism-pdk = "1.0.1"
+anyhow = "1.0.75"
+serde = "1.0.188"
+serde_json = "1.0.113"

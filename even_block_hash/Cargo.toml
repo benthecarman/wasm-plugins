@@ -1,0 +1,13 @@
+[package]
+name = "even_block_hash"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+extism-pdk = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+hex = "0.4.3"
