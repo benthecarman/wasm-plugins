@@ -8,6 +8,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 extism-pdk = { workspace = true }
-serde = { workspace = true }
-anyhow = { workspace = true }
 hex = "0.4.3"
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = true
