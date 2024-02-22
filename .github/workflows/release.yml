@@ -3,7 +3,7 @@ name: Release
 on:
   workflow_dispatch:
   release:
-    types: [created]
+    types: [ created ]
 
 permissions:
   contents: write
@@ -22,6 +22,8 @@ jobs:
 
       - name: Setup `wasm-tools`
         uses: bytecodealliance/actions/wasm-tools/setup@v1
+        with:
+          version: "1.0.57"
 
       - name: Build
         run: make build
